@@ -5,8 +5,8 @@ addpath(functionsFolder)
 
 % Desired elliptical path
 
-a = 0.04;
-b = 0.02;
+a = 0.08;
+b = 0.04;
 xc = 0.10;
 yc = 0.10;
 bed = 0.20;
@@ -21,7 +21,7 @@ y_des = yc + b*sin(w*t);
 
 % Approach trajectory
 
-T_approach = 3;
+T_approach = 2;
 
 t = linspace(0,T_approach+T,3501);
 
@@ -81,20 +81,45 @@ fprintf('RMS ellipse error: %.6f mm\n',rms_error)
 fprintf('Maximum ellipse error: %.6f mm\n',max_error)
 
 
-% Plot the paths
+
+% Plots
 
 figure
 hold on
 
 rectangle('Position',[0 0 bed bed])
-plot(x(idx2),y(idx2),':','LineWidth',1.5)
+plot(x(idx2),y(idx2),':','LineWidth',2.5)
 plot(x_sim,y_sim,'LineWidth',1.5)
+
+[~,k] = max(ee);
+t_max = te(k);
+
+x_max = interp1(t_sim,x_sim,t_max);
+y_max = interp1(t_sim,y_sim,t_max);
+
+plot(x_max,y_max,'rx','MarkerSize',9,'LineWidth',1.5)
 plot(0,0,'ko','MarkerFaceColor','k')
 
 xlabel('x [m]')
 ylabel('y [m]')
-legend('Desired','Feedforward','Origin','Location','best')
+legend('Printer Path','Desired','Max Error','Origin', ...
+    'Location','northeast','FontSize',12)
 axis equal
 xlim([0 bed])
 ylim([0 bed])
+grid on
+
+
+figure
+hold on
+
+plot(te-T_approach,1000*ee,'LineWidth',1.5)
+plot(t_max-T_approach,1000*ee(k),'rx', ...
+    'MarkerSize',9,'LineWidth',1.5)
+
+xlabel('Time [s]')
+ylabel('Tracking error [mm]')
+legend('Tracking Error','Max Error', ...
+    'Location','northeast','FontSize',12)
+xlim([0 T])
 grid on
