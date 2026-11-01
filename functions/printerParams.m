@@ -14,7 +14,7 @@ mu_ly = 2;
 
 Jeq = Jm + m*rm^2/2;
 
-Br = 4*mu_r*rm^2*eye(2);
+Br = mu_r*rm^2*[3 1; 1 3];
 
 Bl = rm^2/4 * ...
     [2*mu_lx+2*mu_ly, 2*mu_lx-2*mu_ly;
