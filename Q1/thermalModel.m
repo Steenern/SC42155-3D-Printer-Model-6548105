@@ -64,7 +64,7 @@ for t = 0:dt:tmax
     end
 
     f_T = (3*h*(Te-temp) + hb*(Tb-temp))/(rho*cp*w);
-    
+
     T(1:nActive) = temp + dt*(...
         Phi(1:end-1) - Phi(2:end) + f_T);
 
@@ -101,6 +101,7 @@ xlabel('Distance along filament (m)')
 ylabel('Time (s)')
 hold on
 yline(Tprint, 'w--', 'Printing complete', 'LineWidth', 1.5)
+
 
 %% Temperature uniformity
 
