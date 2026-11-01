@@ -21,7 +21,7 @@ p = [Jeq; B11; B12; Km; Lm; Rm; ...
      Ln; Cn; Rn; Ct; Rt; Te];
 
 xstart = 0.10;
-ystart = 0.10;
+ystart = 0.06;
 rm = params.rm;
 
 Tprint = 200;
